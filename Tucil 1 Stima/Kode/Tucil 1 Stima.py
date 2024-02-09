@@ -20,6 +20,10 @@ def print_matriks(matriks):
             print(matriks[i][j], end=" ")
         print("")
 
+def print_array(array):
+    for i in range (len(array)):
+        print(array[i],end=" ")
+
 # inputan dan inisialisasi nilai
 buffer = int(input("Jumlah buffer (paling banyak disusun): "))
 jsekuens = int(input("Jumlah sekuens (string kode untuk hadiah): "))

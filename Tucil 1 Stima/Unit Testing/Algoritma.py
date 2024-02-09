@@ -36,14 +36,13 @@ panjang = 1 # catat panjang yang ditelusuri
 # indeks genap (termasuk 0) untuk kolom, indeks ganjil untuk baris
 # tujuannya memastikan tidak ada yang sama dengan array dan untuk mencatat koordinat
 # dipisah untuk catat koordinat
-ganjil = []
-genap = []
+posisi = [0]
 
 # setiap penulusuran ketika sudah panjang tertentu masuk ke array
 # setelah masuk array diconcatenate dan diperiksa nilainya
 # jika lebih besar dari yang sudah ada / awal, akan dimasukkan pada array koordinat jawaban dan solusinya (string jawaban)
 
-jawabansem = [] # array koordinat sementara (setiap telusuran)
+sementara = [] # array koordinat (koordinat dalam array juga biar mudah akses) sementara (setiap telusuran)
 # jawaban tinggal = jawabansem
 
 jawaban = [] # array koordinat
@@ -52,52 +51,77 @@ solusi = "" # string solusi (bisa dari array ketemu)
 hadiah = 0 # nilai total jumlah terbesar
 nilai = 0 # nilai total yang sedang ditelusuri
 
-# # proses
-# while panjang <= buffer: # dari kombinasi sekuens paling sedikit (1-buffer)
-#     ikolom = 0 # indeks kolom yang ditelusuri
-#     jbaris = 0 # indeks baris yang ditelusuri
-#     panjangsekarang = 0 # panjang string yang dikombinasi (dimulai dari panjang paling pendek supaya solusi sependek mungkin)
-#     # ganjil genap beda harus dicek awal supaya g 2 kali
-#     while panjangsekarang != panjang: # cari ekor terpanjang, terawal dulu
-#         if panjangsekarang % 2 != 0: # ganjil maka akhirnya gerakan horizontal
-#             jawaban.append([i,j])
-#         else: # genap maka akhirnya gerakan vertikal
-#             jawaban.append[]
-#     while ikolom <= kolom: # kondisi awal blm ketemu dan kolom habis
+def koordinat_jadi_kode(array): # gabung array kode jadi string untuk penyocokan
+    gabungan = ""
+    for i in range (len(array)):
+        kata = (array[i])[0][1]
+        gabungan = gabungan + kata + " "
+    return gabungan
 
-#         # sementara = ""
-#         # jawaban.append((1,ikolom)) # masukin kode awal
-#         # while len(jawaban) <= buffer: # selama panjang yang ditelusuri lebih kecil dan belum ketemu
-#         #     # vertikal
-#         #     jawaban.append((ibaris,ikolom))
-#         #     sementara += jawaban[len(jawaban)-1] # kode dengan spasi
+# panjang string
+    # kolom awal yang ditelusuri
+        # indeks array kedua sampe akhir maksimal?
 
-#         #     # perhitungan
-#         #     for i in range (arrsekuens):
-#         #         nilai += hitung_kemunculan(jawaban,arrsekuens[i]) * hadiahsekuens[i]
-                
-#         #     if nilai > terbesar:
-#         #         solusi = sementara
-#         #         terbesar = nilai
+# ide: labelin yang udah dikunjungi
 
-#         #     # tambahan cek kasus
-#         #     if len(jawaban) > buffer:
-#         #         break
-
-#         #     # horizontal
-#         #     jawaban.append(())
-#         #     sementara += jawaban[len(jawaban)-1] # kode dengan spasi
+# proses
+while panjang != buffer:
+    # # inisalisasi awal (bengkok satu-satu)
+    # # otomatis kolom 1 baris 1
+    # i = 0
+    # j = 0
+    # if panjang % 2 != 0:
+    #     while len(sementara) != panjang and :
+    #         i += 1
+    #         sementara.append([i][j])
+    #         j += 1
+    #         sementara.append([i][j])
 
 
-#         #     # perhitungan
-#         #     for i in range (arrsekuens):
-#         #         nilai += hitung_kemunculan(jawaban,arrsekuens[i]) * hadiahsekuens[i]
-                
-#         #     if nilai > terbesar:
-#         #         solusi = sementara
-#         #         terbesar = nilai
-#         ikolom += 1
-#     panjang += 1
+    indeks = panjang # indeks array yang diubah-ubah
+
+    while kolomawal != kolom: # mengakhiri penulusuran suatu panjang
+        # penelusuran
+
+        # pasti dari indeks akhir
+        # mulai dari atas (vertikal)
+        # mulai dari kiri (horizontal)
+
+        temp = indeks # simpan info awal sebelum dibengkok dan atur jarak
+
+        # penyelidikan/penyocokan
+        kodetelusuran = koordinat_jadi_kode(sementara)
+        for i in range (jsekuens):
+            indekssekuens = hitung_kemunculan_satu_sekuens(kodetelusuran,arrsekuens[i])
+            nilai += hadiahsekuens[indekssekuens]
+        
+        # cek terbesar atau bukan
+        if nilai > hadiah:
+            hadiah = nilai
+            solusi = kodetelusuran
+            jawaban = sementara
+
+        # pengembalian nilai
+        nilai = 0
+
+        # kondisi gerak berikutnya
+        if (sementara[indeks])[0] == baris and indeks % 2 == 0: # indeks baris melebihi (genap -> gerak vertikal)
+            (sementara[indeks])[0] = temp
+            sementara[indeks-1][1] += 1 # sumbu y tambah
+        elif (sementara[indeks])[0] == baris and indeks % 2 != 0: # indeks baris melebihi (ganjil -> gerak horizontal)
+            sementara[indeks-1][0] -= 1
+
+        kolomawal += 1
+    
+    # panjang berikutnya
+    panjang += 1
+
+
+# hasil
+print("Nilai maksimal = ",hadiah)
+print("Solusi =",solusi)
+print("Array koordinat =",end=" ")
+print_array(jawaban)
 
 # terbesar (blm dikoreksi kebanyakan)
 # masih salah (dibelokin ujungnya sampe maksimal dulu) -> buat kondisi untuk menambah dan mengurangi
@@ -116,3 +140,103 @@ nilai = 0 # nilai total yang sedang ditelusuri
 # 1,1 2,1 2,2 3,2
 
 # belokin yang paling ujungnya sesuai arah dan begitu habis baru ke sebelumnya (pake while supaya tidak melebihi) 
+
+# cek horizontal dan vertikal sampe indeks 0 (awal)
+# atau dikurangi 
+
+# kanan dan bawah dulu (kolom awal)
+# cek sekiri dan seatas mungkin
+# ditambah pas mau belok
+
+matrikskunjungan = []
+visited = True
+
+# vertikal
+# indeks terakhir
+valid = True
+ibaris = 1
+ikolom = 1
+
+# kondisi salah karena harusnya pas mau belok
+temp = sementara[ibaris] # ordinat
+while sementara[ibaris] != -1 and matrikskunjungan[ibaris] != visited: # selama belum paling atas
+
+    sementara.append([ibaris,sementara[ibaris-1]])
+
+    # penyelidikan/penyocokan
+    kodetelusuran = koordinat_jadi_kode(sementara)
+    for i in range (jsekuens):
+        indekssekuens = hitung_kemunculan_satu_sekuens(kodetelusuran,arrsekuens[i])
+        nilai += hadiahsekuens[indekssekuens]
+    
+    # cek terbesar atau bukan
+    if nilai > hadiah:
+        hadiah = nilai
+        solusi = kodetelusuran
+        jawaban = sementara
+
+    sementara.pop()
+
+    ibaris -= 1
+
+sementara[ibaris] = temp+1 # ke bawahnya
+    
+while sementara[ibaris] != baris and matrikskunjungan[ibaris] != visited: # selama belum paling bawah
+    # penyelidikan/penyocokan
+    sementara.append([ibaris,sementara[ibaris-1]])
+    kodetelusuran = koordinat_jadi_kode(sementara)
+    for i in range (jsekuens):
+        indekssekuens = hitung_kemunculan_satu_sekuens(kodetelusuran,arrsekuens[i])
+        nilai += hadiahsekuens[indekssekuens]
+
+    # cek terbesar atau bukan
+    if nilai > hadiah:
+        hadiah = nilai
+        solusi = kodetelusuran
+        jawaban = sementara
+
+    sementara.pop()
+
+    ibaris += 1
+
+temp = sementara[ikolom]
+
+# selama belum paling kiri
+while sementara[ikolom] != kolom and matrikskunjungan[ikolom] != visited: # selama belum paling bawah
+    # penyelidikan/penyocokan
+    sementara.append([ikolom,sementara[ikolom-1]])
+    kodetelusuran = koordinat_jadi_kode(sementara)
+    for i in range (jsekuens):
+        indekssekuens = hitung_kemunculan_satu_sekuens(kodetelusuran,arrsekuens[i])
+        nilai += hadiahsekuens[indekssekuens]
+
+    # cek terbesar atau bukan
+    if nilai > hadiah:
+        hadiah = nilai
+        solusi = kodetelusuran
+        jawaban = sementara
+
+    sementara.pop()
+
+    ikolom -= 1
+
+sementara[ikolom] = temp
+
+# selama belum paling kanan
+while sementara[ikolom] != kolom and matrikskunjungan[ikolom] != visited: # selama belum paling bawah
+    # penyelidikan/penyocokan
+    sementara.append([ikolom,sementara[ikolom-1]])
+    kodetelusuran = koordinat_jadi_kode(sementara)
+    for i in range (jsekuens):
+        indekssekuens = hitung_kemunculan_satu_sekuens(kodetelusuran,arrsekuens[i])
+        nilai += hadiahsekuens[indekssekuens]
+
+    # cek terbesar atau bukan
+    if nilai > hadiah:
+        hadiah = nilai
+        solusi = kodetelusuran
+        jawaban = sementara
+
+    sementara.pop()
+
+    ikolom += 1

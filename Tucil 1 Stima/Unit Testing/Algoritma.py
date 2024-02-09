@@ -1,59 +1,14 @@
-import string
+# matriks
+# array untuk urutan baru concatenate dan match string dengan sekuens concatenated (is in)
+# batasan kolom n+1 untuk setiap baris (horizontal)
+# batasan baris n+1 untuk setiap kolom (vertical)
+# cari satu-satu solusi
+# selama belum ketemu dan masih ada pilihan
+# catat perlunya gerakan horizontal atau vertikal karena selang-seling
+# optimal = dimulai dari baris 1 dan kolom 1 naik kolom kemudian baris
 
-# input matriks
-baris = int(input("Jumlah baris: "))
-kolom = int(input("Jumlah kolom: "))
-
-matrix = []
-
-for i in range(baris):
-    row = []
-    for j in range(kolom):
-        element = input(f"Elemen posisi ({i + 1},{j + 1}): ")
-        row.append(element)
-    matrix.append(row)
-
-# print matriks
-def print_matriks(matriks):
-    for i in range (len(matriks)):
-        for j in range(len(matriks[0])):
-            print(matriks[i][j], end=" ")
-        print("")
-
-# inputan dan inisialisasi nilai
-buffer = int(input("Jumlah buffer (paling banyak disusun): "))
-jsekuens = int(input("Jumlah sekuens (string kode untuk hadiah): "))
-arrsekuens = [] # array dari sekuens yang diperbolehkan
-hadiahsekuens = [] # array dari hadiah yang bertepatan dengan array sekuens
-for i in range(jsekuens): # masukan sekuens dan hadiahnya
-    sekuens = string(input("Sekuens ",i+1,": "))
-    arrsekuens.append(sekuens)
-    hadiah = int(input("Hadiah sekuens ",i+1,": "))
-    hadiahsekuens.append(hadiah)
-kolomawal = 1 # kolom yang ditelusuri awal (1-kolom)
-jawaban = [] # array koordinat dari nilai paling besar
-terbesar = 0 # nilai total jumlah terbesar (solusi optimal sementara)
-solusi = "" # hasil string langsung
-nilai = 0 # nilai total yang sedang ditelusuri
-arah = "vertikal"
-panjang = 0
-
-def hitung_kemunculan_satu_sekuens(main,sub):
-    jumlah = 0
-    indeks = 0
-
-    while True:
-        index = main.find(sub, indeks)
-
-        # If no more occurrences are found, break out of the loop
-        if index == -1:
-            break
-
-        # Increment the count and update the start index for the next search
-        jumlah += 1
-        indeks = index + 1
-
-    return jumlah
+# urutan harus dari jumlah sekuens minimum karena mencari solusi "optimal"
+# ide : dimulai dari belokan 1 langkah sesuai ketentuan
 
 # # proses
 # while panjang <= buffer: # dari kombinasi sekuens paling sedikit (1-buffer)
@@ -101,3 +56,21 @@ def hitung_kemunculan_satu_sekuens(main,sub):
 #         #         terbesar = nilai
 #         ikolom += 1
 #     panjang += 1
+
+# terbesar (blm dikoreksi kebanyakan)
+# masih salah (dibelokin ujungnya sampe maksimal dulu) -> buat kondisi untuk menambah dan mengurangi
+# semua harus ditelusuri karena g tahu yang paling besar yang mana
+
+# 2 kode
+# 1,1 2,2 3,3 4,4 5,5
+
+# 3 kode
+# 1,1 2,1 2,2
+# 1,2 2,2 2,1
+# 1,2 2,2 2,3
+
+# 4 kode
+# 1,1 2,1 2,2 1,2
+# 1,1 2,1 2,2 3,2
+
+# belokin yang paling ujungnya sesuai arah dan begitu habis baru ke sebelumnya (pake while supaya tidak melebihi) 

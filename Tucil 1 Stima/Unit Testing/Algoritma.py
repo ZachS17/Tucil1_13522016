@@ -2,13 +2,55 @@
 # array untuk urutan baru concatenate dan match string dengan sekuens concatenated (is in)
 # batasan kolom n+1 untuk setiap baris (horizontal)
 # batasan baris n+1 untuk setiap kolom (vertical)
-# cari satu-satu solusi
-# selama belum ketemu dan masih ada pilihan
-# catat perlunya gerakan horizontal atau vertikal karena selang-seling
-# optimal = dimulai dari baris 1 dan kolom 1 naik kolom kemudian baris
+# cari satu-satu
+# catat perlunya gerakan horizontal atau vertikal (array baris dan kolom tergantung ganjil atau genap)
 
 # urutan harus dari jumlah sekuens minimum karena mencari solusi "optimal"
 # ide : dimulai dari belokan 1 langkah sesuai ketentuan
+
+import string
+
+# inputan dan inisialisasi nilai
+
+baris = int(input("Jumlah baris: "))
+kolom = int(input("Jumlah kolom: "))
+
+buffer = int(input("Jumlah buffer (paling banyak disusun): "))
+jsekuens = int(input("Jumlah sekuens (string kode untuk hadiah): "))
+arrsekuens = [] # array dari "string" sekuens yang diperbolehkan
+hadiahsekuens = [] # array dari hadiah yang sesuai dengan array sekuens
+for i in range(jsekuens): # masukan sekuens dan hadiahnya
+    sekuens = input("Sekuens ",i+1,": ")
+    arrsekuens.append(sekuens)
+    hadiah = int(input("Hadiah sekuens ",i+1,": "))
+    hadiahsekuens.append(hadiah)
+
+# telusuri semua solusi dari panjang terkecil mungkin (optimal)
+# setiap panjang (dari paling kecil)
+    # setiap kolom
+        
+kolomawal = 0 # kolom yang ditelusuri dari awal (0-(kolom-1))
+panjang = 1 # catat panjang yang ditelusuri
+
+# array of angka untuk catat
+# indeks genap (termasuk 0) untuk kolom, indeks ganjil untuk baris
+# tujuannya memastikan tidak ada yang sama dengan array dan untuk mencatat koordinat
+# dipisah untuk catat koordinat
+ganjil = []
+genap = []
+
+# setiap penulusuran ketika sudah panjang tertentu masuk ke array
+# setelah masuk array diconcatenate dan diperiksa nilainya
+# jika lebih besar dari yang sudah ada / awal, akan dimasukkan pada array koordinat jawaban dan solusinya (string jawaban)
+
+jawabansem = [] # array koordinat sementara (setiap telusuran)
+# jawaban tinggal = jawabansem
+
+jawaban = [] # array koordinat
+solusi = "" # string solusi (bisa dari array ketemu)
+
+hadiah = 0 # nilai total jumlah terbesar
+nilai = 0 # nilai total yang sedang ditelusuri
 
 # # proses
 # while panjang <= buffer: # dari kombinasi sekuens paling sedikit (1-buffer)

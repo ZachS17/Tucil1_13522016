@@ -240,3 +240,19 @@ while sementara[ikolom] != kolom and matrikskunjungan[ikolom] != visited: # sela
     sementara.pop()
 
     ikolom += 1
+
+indeks_array_sementara = 1
+array_temp = [] # array untuk menyimpan nilai awal dari cabang-cabang yang mau dibengkok (semua karena bisa jadi berubah sampai indeks awal)
+# pemeriksaan dari indeks sampai ujung terus
+while indeks_array_sementara != -1: # pemeriksaan dikurang terus ke kiri (begitu mentok -> ujung atau kena yang lain)
+    # proses pemeriksaan indeks terakhir (contoh)
+
+    # begitu mentok
+    valid = False
+    while not valid: # mencari tempat valid untuk mulai pencarian lagi
+        indeks -= 1 # indeks array dikurangi (sebelum yang mentok)
+        # cek indeks sebelumnya udah mentok atau blm (batas kanan dan bawahnya)
+        # dibandingin dengan nilai awal di temp array
+
+    # akhir
+    indeks_array_sementara -= 1

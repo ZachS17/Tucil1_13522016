@@ -256,3 +256,10 @@ while indeks_array_sementara != -1: # pemeriksaan dikurang terus ke kiri (begitu
 
     # akhir
     indeks_array_sementara -= 1
+
+# selama belum indeks -1 (semua udah maks)
+# dikurangi indeks -1 sambil cari valid (cek sebelum dan sesudah) dan dicatat temp_array
+  # selama belum sampe indeks terakhir
+  # di maks indeks terakhir baru kurangi lagi
+# (ulang terus dan pengecekan setiap kali)
+# (kondisi visited dan ujung)

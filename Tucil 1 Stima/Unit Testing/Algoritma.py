@@ -8,7 +8,44 @@
 # urutan harus dari jumlah sekuens minimum karena mencari solusi "optimal"
 # ide : dimulai dari belokan 1 langkah sesuai ketentuan
 
-import string
+# matriks
+baris = int(input("Jumlah baris: "))
+kolom = int(input("Jumlah kolom: "))
+
+matrix = []
+
+for i in range(baris):
+    row = []
+    for j in range(kolom):
+        element = input(f"Elemen posisi ({i + 1},{j + 1}): ")
+        row.append(element)
+    matrix.append(row)
+
+for i in range (baris):
+    for j in range(kolom):
+        print(matrix[i][j], end=" ")
+    print("")
+
+def hitung_kemunculan_satu_sekuens(main,sub):
+    jumlah = 0
+    indeks = 0
+
+    while True:
+        index = main.find(sub, indeks)
+
+        # If no more occurrences are found, break out of the loop
+        if index == -1:
+            break
+
+        # Increment the count and update the start index for the next search
+        jumlah += 1
+        indeks = index + 1
+
+    return jumlah
+
+def print_array(array):
+    for i in range (len(array)):
+        print(array[i],end=" ")
 
 # inputan dan inisialisasi nilai
 
@@ -64,57 +101,134 @@ def koordinat_jadi_kode(array): # gabung array kode jadi string untuk penyocokan
 
 # ide: labelin yang udah dikunjungi
 
+# 0 untuk blm, 1 untuk udah
+matrikskunjungan = [[0 for i in range(baris)] for j in range (kolom)]
+
+# matriks belokan untuk melihat semua kemungkinan yang sudah dikunjungi dan blm di indeks tertentu
+matriksbelokan = [[] for i in range (buffer)]
+# masukan sama kayak matriks
+# dilakukan "in" untuk lihat di indeks mana blm dimasukkin
+# dibiarin yang nggak dipake
+
+def is_element(array,elemen):
+    i = 0
+    isElement = False
+    while i != len(array) and not isElement:
+        if array[i] == elemen:
+            isElement = True
+        i += 1
+    return isElement
+
 # proses
-while panjang != buffer:
-    # # inisalisasi awal (bengkok satu-satu)
-    # # otomatis kolom 1 baris 1
-    # i = 0
-    # j = 0
-    # if panjang % 2 != 0:
-    #     while len(sementara) != panjang and :
-    #         i += 1
-    #         sementara.append([i][j])
-    #         j += 1
-    #         sementara.append([i][j])
+while kolomawal != kolom: # mengakhiri penulusuran suatu panjang
 
+    # g pake inisialisasi karena dicheck setiap kali ada tambahan/perubahan
+    i = 0
+    j = kolomawal
+    matrix[i][j] = 1
 
-    indeks = panjang # indeks array yang diubah-ubah
+    indeks = len(sementara) # indeks penelusuran array sementara (belokan)
 
-    while kolomawal != kolom: # mengakhiri penulusuran suatu panjang
-        # penelusuran
-
-        # pasti dari indeks akhir
-        # mulai dari atas (vertikal)
-        # mulai dari kiri (horizontal)
-
-        temp = indeks # simpan info awal sebelum dibengkok dan atur jarak
-
-        # penyelidikan/penyocokan
-        kodetelusuran = koordinat_jadi_kode(sementara)
-        for i in range (jsekuens):
-            indekssekuens = hitung_kemunculan_satu_sekuens(kodetelusuran,arrsekuens[i])
-            nilai += hadiahsekuens[indekssekuens]
-        
-        # cek terbesar atau bukan
-        if nilai > hadiah:
-            hadiah = nilai
-            solusi = kodetelusuran
-            jawaban = sementara
-
-        # pengembalian nilai
-        nilai = 0
-
-        # kondisi gerak berikutnya
-        if (sementara[indeks])[0] == baris and indeks % 2 == 0: # indeks baris melebihi (genap -> gerak vertikal)
-            (sementara[indeks])[0] = temp
-            sementara[indeks-1][1] += 1 # sumbu y tambah
-        elif (sementara[indeks])[0] == baris and indeks % 2 != 0: # indeks baris melebihi (ganjil -> gerak horizontal)
-            sementara[indeks-1][0] -= 1
-
-        kolomawal += 1
+    # vertikal
     
-    # panjang berikutnya
-    panjang += 1
+    # kondisi panjang tidak melebihi
+    # maks di indeks dari paling akhir ke paling awal (g ada pilihan lagi)
+
+    # begitu mentok (g bisa gerak kemanapun) -> balikin dan kurangi indeks sampe ketemu valid (dibandingin indeks di array harus lebih besar (kanan bawah))
+    
+    # kondisi setiap kali mau lihat ada opsi
+    if len(sementara) <= buffer: # baru tambahin (kondisi karena g selalu sepanjang buffer)
+        sementara.append(1)
+
+    while indeks != -1: # semua indeks sudah maks dan dikunjungi
+        # digunakan untuk menelusuri semua kemungkinan pada satu indeks, hanya indeksnya yang dipindahkan, pengecekan juga hanya horizontal atau vertikal
+
+        if indeks % 2 == 0: # genap -> horizontal
+            # cek indeks yang masih bisa
+            if matrik
+
+        elif indeks % 2 != 0: # ganjil -> vertikal
+        elif indeks != len(sementara): # di indeks sebelumnya
+            # cek dulu semua kemungkinan dalam indeks
+            # tambah indeks
+            indeks += 1
+        else: # mentok di manapun
+            # mundur tapi pengecekan sama
+            valid = False
+            while not valid: # cari indeks untuk diubah
+                indeks -= 1
+                if indeks % 2 == 0: # genap -> horizontal
+                    batasatas = indeks
+                    batasbawah = indeks
+                    for i in range (kolom):
+
+    # cek horizontal untuk pilihan
+    batasatas = indeks # sejauh mana bisa diambil ke atas (ditambah)
+    batasbawah = indeks # sejauh mana bisa diambil ke bawah (dikurang)
+    # gerakan horizontal (kolom)
+    while matrikskunjungan[sementara[indeks-1]][batasatas] != 1 or matrikskunjungan[sementara[indeks-1]][batasbawah] != 1: # selama g ada halangan
+        batasatas += 1
+        batasbawah -= 1
+        matriksbelokan[indeks].append(batasatas)
+        matriksbelokan[indeks].append(batasbawah)
+
+    # penelusuran horizontal
+    for i in range (len(matriksbelokan[indeks])):
+        if len(sementara) == buffer:
+            matriksbelokan[indeks].pop()
+            sementara.pop()
+            matriksbelokan[indeks].append(matriksbelokan[i])
+            sementara.append(matriksbelokan[i])
+            # gabung dan nilai
+
+    # cek vertikal untuk pilihan
+    batasatas = indeks # sejauh mana bisa diambil ke atas (ditambah)
+    batasbawah = indeks # sejauh mana bisa diambil ke bawah (dikurang)
+    # gerakan horizontal (kolom)
+    while matrikskunjungan[batasatas][sementara[indeks-1]] != 1 or matrikskunjungan[batasbawah][sementara[indeks-1]] != 1: # selama g ada halangan
+        batasatas += 1
+        batasbawah -= 1
+        matriksbelokan[indeks].append(batasatas)
+        matriksbelokan[indeks].append(batasbawah)
+
+    # penelusuran vertikal
+    for i in range (len(matriksbelokan[indeks])):
+        if len(sementara) == buffer:
+            matriksbelokan[indeks].pop()
+            sementara.pop()
+            matriksbelokan[indeks].append(matriksbelokan[i])
+            sementara.append(matriksbelokan[i])
+            # gabung dan nilai
+
+    if i == 0 or matrikskunjungan[i-1][j] == 1: # tidak bisa ke atas
+        if i == baris-1 or matrikskunjungan[i+1][j] == 1: # tidak bisa ke bawah
+            break
+        else: # bisa ke bawah
+            i += 1
+    else: # bisa ke bawah
+        i -= 1
+    sementara.append(i)
+
+    # horizontal
+    if j == 0 or matrikskunjungan[i][j-1] == 1: # tidak bisa ke kiri
+        if j == kolom-1 or matrikskunjungan[i][j+1] == 1: # tidak bisa ke kanan
+            break
+        else: # bisa ke kanan
+            j += 1
+    else: # bisa ke kiri
+        i -= 1
+    sementara.append(i)
+
+    # penelusuran untuk bengkokin
+
+    # pasti dari indeks akhir
+    # mulai dari atas (vertikal)
+    # mulai dari kiri (horizontal)
+
+    # pengembalian nilai
+    nilai = 0
+
+    kolomawal += 1
 
 
 # hasil
@@ -122,6 +236,18 @@ print("Nilai maksimal = ",hadiah)
 print("Solusi =",solusi)
 print("Array koordinat =",end=" ")
 print_array(jawaban)
+
+# penyelidikan/penyocokan
+kodetelusuran = koordinat_jadi_kode(sementara)
+for i in range (jsekuens):
+    indekssekuens = hitung_kemunculan_satu_sekuens(kodetelusuran,arrsekuens[i])
+    nilai += hadiahsekuens[indekssekuens]
+
+# cek terbesar atau bukan
+if nilai > hadiah:
+    hadiah = nilai
+    solusi = kodetelusuran
+    jawaban = sementara
 
 # terbesar (blm dikoreksi kebanyakan)
 # masih salah (dibelokin ujungnya sampe maksimal dulu) -> buat kondisi untuk menambah dan mengurangi
